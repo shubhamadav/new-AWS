@@ -1,44 +1,36 @@
-const mysql = require('mysql');
-const express = require('express');
-const bodyParser = require('body-parser'); 
-const app = express();
+document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.getElementById('loginForm');
+    const signupButton = document.getElementById('signupButton');
 
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        const formData = new FormData(loginForm);
+        const userData = {
+            useremail: formData.get('useremail'),
+            userpass: formData.get('userpass')
+        };
 
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "toor",
-    database: "nodejs"
-});
-
-connection.connect(function(error) {
-    if (error) throw error;
-    else console.log("Connection established successfully");
-});
-
-app.use(bodyParser.urlencoded({ extended: true })); 
-
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
-});
-
-app.post("/", function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password; 
-    connection.query("SELECT * FROM loginuser WHERE username=? AND userpass=?", [username, password], function(error, result, fields) {
-        if (error) throw error;
-        if (result.length > 0) {
-            res.redirect("/welcome");
-        } else {
-            res.redirect("/");
-        }
+        // Replace 'YOUR_API_URL' with the actual backend API URL
+        fetch('YOUR_API_URL', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the backend
+            console.log(data); // You can customize this based on your API response
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
-});
 
-app.get("/welcome", function(req, res) {
-    res.sendFile(__dirname + "/welcome.html"); 
-});
-
-app.listen(3000, function() {
-    console.log("App listening on port 4000");
+    signupButton.addEventListener('click', function () {
+        // Redirect to the signup page or show a signup modal
+        // You need to implement this behavior based on your app's structure
+    });
 });
