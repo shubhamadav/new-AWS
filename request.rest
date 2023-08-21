@@ -1,0 +1,11 @@
+GET http://localhost:3000/uesrs
+
+#####
+
+POST http://localhost:3000/uesrs
+Content-Type: application/json
+
+{
+    "name":"sharad",
+    "password":"234567"
+}
