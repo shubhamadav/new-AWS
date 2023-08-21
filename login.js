@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const signupButton = document.getElementById('signupButton');
 
     loginForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+        event.preventDefault();
         
         const formData = new FormData(loginForm);
         const userData = {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             userpass: formData.get('userpass')
         };
 
-        // Replace 'YOUR_API_URL' with the actual backend API URL
+       
         fetch('YOUR_API_URL', {
             method: 'POST',
             headers: {
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            // Handle the response from the backend
-            console.log(data); // You can customize this based on your API response
+           
+            console.log(data); 
         })
         .catch(error => {
             console.error('Error:', error);
@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     signupButton.addEventListener('click', function () {
-        // Redirect to the signup page or show a signup modal
-        // You need to implement this behavior based on your app's structure
+        
     });
 });
